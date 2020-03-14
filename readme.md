@@ -31,7 +31,7 @@ Spring 4 + MyBatis 3 + MariaDB (Maven) 기반으로  제작한 웹 프로젝트 
 - JDBC 파일 복사: copy mariadb-java-client-x.x.x to /solr/dist
 - 형태소 분석기 설치: copy arirang.lucene-analyzer-x.x.x.jar to /server/solr-webapp/webapp/WEB-INF/lib
 - 형태소 분석기 설치: copy arirang-morph-x.x.x.jar to /server/solr-webapp/webapp/WEB-INF/lib
-- 스키마 등: copy config files in project9/solr (managed-schema, db-data-config.xml, solrconfig.xml and etc)
+- 스키마 등: copy config files in project9_solr/solr (managed-schema, db-data-config.xml, solrconfig.xml and etc)
 - 재실행: solr restart -p 8983
 - 풀색인: http://localhost:8983/solr/#/project9/dataimport//dataimport
 
