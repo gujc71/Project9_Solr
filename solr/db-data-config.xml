@@ -1,0 +1,54 @@
+<dataConfig>
+    <propertyWriter dateFormat="yyyy-MM-dd HH:mm:ss" type="SimplePropertiesWriter" />
+    <dataSource driver="org.mariadb.jdbc.Driver" url="jdbc:mariadb://localhost/test" user="root" password="gujc1004" readOnly="True"/>
+
+    <dataSource name="file"
+                type="BinFileDataSource"
+                basePath="d:\workspace\fileupload\" />    
+	<document>
+        <entity name="board" rootEntity="true" 
+                query="SELECT bgno, brdno, brdmemo, brdtitle, usernm brdwriter, LEFT(brddate, 10) brddate, RIGHT(brddate, 8) brdtime, 1 brdtype FROM TBL_BOARD TB INNER JOIN COM_USER CU ON tb.userno=cu.userno WHERE brddeleteflag='N'"
+                deltaQuery="SELECT brdno FROM TBL_BOARD WHERE brddeleteflag='N' AND brddate &gt; '${dataimporter.last_index_time}'"
+                deltaImportQuery="SELECT bgno, brdno, brdmemo, brdtitle, usernm brdwriter, LEFT(brddate, 10) brddate, RIGHT(brddate, 8) brdtime, 1 brdtype FROM TBL_BOARD TB INNER JOIN COM_USER CU ON tb.userno=cu.userno WHERE brdno = '${dataimporter.delta.brdno}'"
+                deletedPkQuery="SELECT brdno FROM TBL_BOARD WHERE brddeleteflag='Y' AND brddeletedate &gt; '${dataimporter.last_index_time}'"
+                >
+            <field column="brdno" name="id" />                
+            <field column="bgno" name="bgno" />                
+            <field column="brdno" name="brdno" />
+            <field column="brdtitle" name="brdtitle" />
+            <field column="brdmemo" name="brdmemo" />
+            <field column="brdwriter" name="brdwriter" />
+            <field column="brddate" name="brddate" />
+            <field column="brdtime" name="brdtime" />
+            <field column="brdtype" name="brdtype" />                
+            
+            <entity name="reply" child="true" pk="reno" 
+                    query="SELECT brdno as id, reno, rememo FROM TBL_BOARDREPLY a WHERE redeleteflag='N' AND brdno='${board.brdno}'"
+                    deltaQuery="SELECT reno FROM TBL_BOARDREPLY WHERE redeleteflag='N' AND redate &gt; '${dataimporter.last_index_time}'"
+                    parentDeltaQuery="SELECT brdno as id, brdno FROM TBL_BOARDREPLY WHERE reno='${reply.reno}'"
+                    deltaImportQuery="SELECT brdno, reno, rememo FROM TBL_BOARDREPLY WHERE reno='${dataimporter.delta.reno}'"
+                    deletedPkQuery="SELECT reno FROM TBL_BOARDREPLY WHERE redeleteflag='Y' AND redeletedate &gt; '${dataimporter.last_index_time}'"
+                    >
+                <field column="brdno" name="brdno" />    
+                <field column="reno" name="reno" />
+                <field column="rememo" name="rememo" />
+            </entity>
+
+            <entity name="boardFileList" child="true" pk="fileno" 
+					query="SELECT brdno, brdno as id, fileno, filename, concat(left(realname,4), '\\',realname) realname FROM TBL_BOARDFILE WHERE brdno='${board.brdno}'">
+					<field column="fileno" name="fileno" />
+					<field column="filename" name="filename" />
+					
+					<entity name="boardFile" processor="TikaEntityProcessor"
+                        url="\${boardFileList.realname}"
+						dataSource="file" format="text" onError="skip">
+
+					<field column="text" name="filememo" />
+                </entity>
+			  
+            </entity>
+			
+        </entity>
+    </document>
+</dataConfig>
+
