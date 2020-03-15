@@ -18,7 +18,7 @@
 	p:driverClassName="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" p:url="jdbc:log4jdbc:mysql://localhost/board"
 	-->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
-		  p:driverClassName="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" p:url="jdbc:log4jdbc:mysql://localhost/project9?useUnicode=true&amp;characterEncoding=utf8" 
+		  p:driverClassName="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" p:url="jdbc:log4jdbc:mysql://localhost/test?useUnicode=true&amp;characterEncoding=utf8" 
           p:username="root" p:password="gujc1004"
           p:initialSize="2"
           p:maxActive="30"

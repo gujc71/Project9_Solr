@@ -38,6 +38,7 @@ Spring 4 + MyBatis 3 + MariaDB (Maven) 기반으로  제작한 웹 프로젝트 
 - 풀색인: http://localhost:8983/solr/#/project9/dataimport//dataimport
 
 ### Project9 설치 ###
+- git clone https://github.com/gujc71/Project9_Solr.git
 - MariaDB에 데이터 베이스(project9)를 생성하고 tables.sql, tableData.sql를 실행하여 테이블과 데이터를 생성한다.
 - applicationContext.xml에 적절한 접속 정보를 입력한다.
 - 톰캣이나 이클립스에서 project9 실행
