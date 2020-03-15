@@ -1,6 +1,6 @@
 <dataConfig>
     <propertyWriter dateFormat="yyyy-MM-dd HH:mm:ss" type="SimplePropertiesWriter" />
-    <dataSource driver="org.mariadb.jdbc.Driver" url="jdbc:mariadb://localhost/test" user="root" password="gujc1004" readOnly="True"/>
+    <dataSource driver="org.mariadb.jdbc.Driver" url="jdbc:mariadb://localhost/project9" user="root" password="gujc1004" readOnly="True"/>
 
     <dataSource name="file"
                 type="BinFileDataSource"
